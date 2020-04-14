@@ -8,6 +8,11 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
   if (!confirmed) {
     return "Loading.....";
   }
+  const recoveredPercentage = (
+    (recovered.value / confirmed.value) *
+    100
+  ).toFixed(2);
+  const deathsPercentage = ((deaths.value / confirmed.value) * 100).toFixed(2);
   return (
     <div className={styles.container}>
       <Grid container spacing={3} justify="center">
@@ -53,6 +58,9 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
               duration={2.5}
               separator=","
             />
+            <span className={styles.recoveredperent}>
+              ( {recoveredPercentage}% )
+            </span>
           </Typography>
           <Typography color="textPrimary">
             {new Date(lastUpdate).toDateString()}
@@ -78,7 +86,9 @@ const Cards = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {
               duration={2.5}
               separator=","
             />
+            <span className={styles.deathsperent}>( {deathsPercentage}% )</span>
           </Typography>
+
           <Typography color="textPrimary">
             {new Date(lastUpdate).toDateString()}
           </Typography>
